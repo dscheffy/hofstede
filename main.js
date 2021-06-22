@@ -61,12 +61,22 @@ d3.text("data/6-dimensions-for-website-2015-08-16.csv").then(function(blob) {
       .attr("r", 1.5)
       .style("fill", "black");
 
-  flags.enter()
-    .append("text")
-    .attr("x", function (d) { return x(d.pdi); } )
-    .attr("y", function (d) { return y(d.idv); } )
-    .text(function (d) {return alpha3to2(d.ctr)});
+  // flags.enter()
+  //   .append("text")
+  //   .filter(d=>!isNaN(d.idv) )
+  //   .attr("x", function (d) { return x(d.pdi); } )
+  //   .attr("y", function (d) { return y(d.idv); } )
+  //   .text(function (d) {return alpha3to2(d.ctr)});
 
+
+  flags.enter().append("image")
+  .filter(d=>!isNaN(d.idv) )
+  .attr("width", 15)
+    .attr("height", 10)
+    .attr("x", function (d) { return x(d.pdi) - 7; })
+    .attr("y", function (d) { return y(d.idv) - 5; })
+    .attr("xlink:href", function(d) {return "http://fonttools.github.io/region-flags/svg/" + alpha3to2(d.ctr) + ".svg"})
+    .attr("preserveAspectRatio", "xMinYMin");
   // Enter
   
   
