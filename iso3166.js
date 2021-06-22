@@ -250,7 +250,6 @@ const alpha2Map = {
   ZMB: "ZM",
   ZWE: "ZW",
 };
-console.log(alpha2Map[alpha3] ?? alpha3);
 
 return alpha2Map[alpha3] ?? alpha3;
 

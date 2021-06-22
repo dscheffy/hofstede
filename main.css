@@ -1,7 +1,7 @@
 .svg-container {
   display: inline-block;
   position: relative;
-  width: 100%;
+  width: 80%;
   padding-bottom: 100%; /* aspect ratio */
   vertical-align: top;
   overflow: hidden;
@@ -17,4 +17,12 @@ svg .rect {
   fill: lightgrey;
   stroke: steelblue;
   stroke-width: 5px;
+}
+
+text.current {
+  font-weight: bold;
+  font-size: 15px;
+}
+#chart {
+  font: 10px sans-serif;
 }
