@@ -42,14 +42,31 @@ svg.append("g")
 
     // get the data
 d3.text("data/6-dimensions-for-website-2015-08-16.csv").then(function(blob) {
-  
+  var data = d3.dsvFormat(";").parse(blob);
   // Update
-  var flags = d3.select("#chart")
-  .selectAll("p")
-  .data(d3.dsvFormat(";").parse(blob))
-  .enter().append("p").text(d=>JSON.stringify(d));
+  // var flags = d3.select("#chart")
+  // .selectAll("p")
+  // .data()
+  // .enter().append("p").text(d=>JSON.stringify(d));
   
-  
+  var flags = svg.append('g')
+    .selectAll("dot")
+    .data(data);
+
+  flags
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return x(d.pdi); } )
+      .attr("cy", function (d) { return y(d.idv); } )
+      .attr("r", 1.5)
+      .style("fill", "black");
+
+  flags.enter()
+    .append("text")
+    .attr("x", function (d) { return x(d.pdi); } )
+    .attr("y", function (d) { return y(d.idv); } )
+    .text(function (d) {return alpha3to2(d.ctr)});
+
   // Enter
   
   
@@ -57,3 +74,4 @@ d3.text("data/6-dimensions-for-website-2015-08-16.csv").then(function(blob) {
   
   //
 })
+
