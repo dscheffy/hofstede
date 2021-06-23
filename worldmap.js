@@ -13,28 +13,26 @@ var path = d3.geoPath()
 
 // Data and color scale
 var data = d3.map();
-var colorScheme = d3.schemeReds[6];
-colorScheme.unshift("#eee")
-var colorScale = d3.scaleThreshold()
-    .domain([1, 21, 41, 61, 81, 101])
-    .range(colorScheme);
+var colorScale = d3.scaleLinear()
+    .domain([0,50,100])
+    .range(["red", "grey", "green"]);
 
 // Legend
-var g = svg.append("g")
-    .attr("class", "legendThreshold")
-    .attr("transform", "translate(20,20)");
-g.append("text")
-    .attr("class", "caption")
-    .attr("x", 0)
-    .attr("y", -6)
-    .text("Students");
-var labels = ['NA', '1-20', '21-40', '41-60', '61-80', '81-100', '> 100'];
-var legend = d3.legendColor()
-    .labels(function (d) { return labels[d.i]; })
-    .shapePadding(4)
-    .scale(colorScale);
-svg.select(".legendThreshold")
-    .call(legend);
+// var g = svg.append("g")
+//     .attr("class", "legendThreshold")
+//     .attr("transform", "translate(20,20)");
+// g.append("text")
+//     .attr("class", "caption")
+//     .attr("x", 0)
+//     .attr("y", -6)
+//     .text("Students");
+// var labels = ['NA', '1-20', '21-40', '41-60', '61-80', '81-100', '> 100'];
+// var legend = d3.legendColor()
+//     .labels(function (d) { return labels[d.i]; })
+//     .shapePadding(4)
+//     .scale(colorScale);
+// svg.select(".legendThreshold")
+//     .call(legend);
 
 // Load external data and boot
 d3.queue()
@@ -55,6 +53,7 @@ function ready(error, topo) {
             .attr("fill", function (d){
                 // Pull data for this country
                 d.total = data.get(d.id) || 0;
+                if(d.total==0) { return "black"}
                 // Set the color
                 return colorScale(d.total);
             })
