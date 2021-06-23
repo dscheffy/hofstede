@@ -32,7 +32,7 @@ var colorScale = d3.scaleLinear()
 
 // Load external data and boot
 d3.queue()
-    .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
+    .defer(d3.json, "https://enjalot.github.io/wwsd/data/world/world-110m.geojson")
     .defer(d3.csv, "data/6-dims-commas.csv", function(d) { data.set(d.ctr, +d[dim]); })
     .await(ready);
 
