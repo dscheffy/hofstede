@@ -16,7 +16,7 @@ var data = d3.map();
 var colorScheme = d3.schemeReds[6];
 colorScheme.unshift("#eee")
 var colorScale = d3.scaleThreshold()
-    .domain([1, 6, 11, 26, 101, 1001])
+    .domain([1, 21, 41, 61, 81, 101])
     .range(colorScheme);
 
 // Legend
@@ -28,7 +28,7 @@ g.append("text")
     .attr("x", 0)
     .attr("y", -6)
     .text("Students");
-var labels = ['0', '1-5', '6-10', '11-25', '26-100', '101-1000', '> 1000'];
+var labels = ['NA', '1-20', '21-40', '41-60', '61-80', '81-100', '> 100'];
 var legend = d3.legendColor()
     .labels(function (d) { return labels[d.i]; })
     .shapePadding(4)
@@ -39,7 +39,8 @@ svg.select(".legendThreshold")
 // Load external data and boot
 d3.queue()
     .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-    .defer(d3.csv, "mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+//    .defer(d3.csv, "mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
+    .defer(d3.csv, "data/6-dims-commas.csv", function(d) { data.set(d.ctr, +d.pdi); })
     .await(ready);
 
 function ready(error, topo) {
