@@ -1,3 +1,16 @@
+const queryParams = getQueryParams();
+dims = ["pdi", "idv", "mas", "uai", "ltowvs", "ivr"]
+dimensionNames = {
+  pdi:"Power Distance Index",
+  idv:"Indvidualism vs Collectivism",
+  mas:"Masculinity vs Femininity",
+  uai:"Uncertainty Avoidance",
+  ltowvs:"Long Term vs Short Term Orientation",
+  ivr:"Indulgence vs Restraint"
+}
+const dim = queryParams["dimension"] || "pdi";
+d3.select("#dimensionName").text(dimensionNames[dim])
+
 // The svg
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
@@ -17,28 +30,10 @@ var colorScale = d3.scaleLinear()
     .domain([0,50,100])
     .range(["red", "grey", "green"]);
 
-// Legend
-// var g = svg.append("g")
-//     .attr("class", "legendThreshold")
-//     .attr("transform", "translate(20,20)");
-// g.append("text")
-//     .attr("class", "caption")
-//     .attr("x", 0)
-//     .attr("y", -6)
-//     .text("Students");
-// var labels = ['NA', '1-20', '21-40', '41-60', '61-80', '81-100', '> 100'];
-// var legend = d3.legendColor()
-//     .labels(function (d) { return labels[d.i]; })
-//     .shapePadding(4)
-//     .scale(colorScale);
-// svg.select(".legendThreshold")
-//     .call(legend);
-
 // Load external data and boot
 d3.queue()
     .defer(d3.json, "http://enjalot.github.io/wwsd/data/world/world-110m.geojson")
-//    .defer(d3.csv, "mooc-countries.csv", function(d) { data.set(d.code, +d.total); })
-    .defer(d3.csv, "data/6-dims-commas.csv", function(d) { data.set(d.ctr, +d.pdi); })
+    .defer(d3.csv, "data/6-dims-commas.csv", function(d) { data.set(d.ctr, +d[dim]); })
     .await(ready);
 
 function ready(error, topo) {
