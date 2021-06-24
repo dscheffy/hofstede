@@ -11,10 +11,17 @@ dimensionNames = {
 const dim = queryParams["dimension"] || "pdi";
 d3.select("#dimensionName").text(dimensionNames[dim])
 
+var width = 960;
+var height = 500;
+
 // The svg
-var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+var svg = d3.select("#map").append("svg")
+     .attr("width", width)
+  .attr("height", height)
+  .call(d3.zoom().on("zoom", function () {
+          svg.attr("transform", d3.event.transform)
+  }))
+  .append("g");
 
 // Map and projection
 var path = d3.geoPath();
@@ -40,7 +47,7 @@ function ready(error, topo) {
     if (error) throw error;
 
     // Draw the map
-    svg.append("g")
+    svg
         .attr("class", "countries")
         .selectAll("path")
         .data(topo.features)
